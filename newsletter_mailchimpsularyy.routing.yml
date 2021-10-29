@@ -1,0 +1,16 @@
+newslatter_sularyy.addform:
+  path: '/newsletter_mailchimp_sularyy/addform'
+  defaults:
+    _title: 'newsletter_mail_chimp_sularyy'
+    _form: '\Drupal\newsletter_mailchimp_sularyy\Form\addform'
+  requirements:
+    _permission: 'access content'
+
+newsletter_mailchimp_sularyy.content:
+  path: '/newsletter_mailchimp_sularyy'
+  defaults:
+    _controller: '\Drupal\newsletter_mailchimp_sularyy\Controller\newsletter_mailchimp_sularyyController::content'
+    _title: 'Contenido'
+
+  requirements:
+    _permission: 'access content'

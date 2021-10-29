@@ -1,0 +1,8 @@
+name: newsletter_mailchimp_sularyy
+description: Formulario de para añadir datos en listas de correro
+package: Sularyy
+type: module
+core: 8.x
+
+libraries:
+  - newsletter_mailchimp_sularyy/newsletter_sularyy
