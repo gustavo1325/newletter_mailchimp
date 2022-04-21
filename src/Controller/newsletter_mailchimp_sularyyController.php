@@ -24,7 +24,6 @@ class newsletter_mailchimp_sularyyController extends ControllerBase {
 
     $contenido[] = [
       '#theme' => 'newsletter_mailchimp',
-      //'#test_var' => t('Esto es una prueba'),
       '#form' => $form,
     ];
 
