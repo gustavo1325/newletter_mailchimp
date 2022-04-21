@@ -26,7 +26,6 @@ class addform extends FormBase {
 
     $form['nom'] = array(
       '#type' => 'textfield',
-      //'#default_value'=>t('nom'),
       '#placeholder'=>t('Nom'),
       '#size' => 60,
       '#maxlength'  => 128,
@@ -41,7 +40,6 @@ class addform extends FormBase {
       '#type' => 'email',
       /*'#default_value'=>t('Email'),*/
       '#placeholder'=>t('Email'),
-      //'#title' => $this->t('Email'),
       '#attributes' => array(
         'class' => array('newsletter_sularyy_email')
       ),
@@ -67,7 +65,6 @@ class addform extends FormBase {
             'id' => array('otroidposible')
           ),
         ];
-       // honeypot_add_form_protection($form, $form_state, array('honeypot', 'time_restriction'));
         return $form;
   }
 
@@ -83,7 +80,7 @@ class addform extends FormBase {
   }*/
   $values = $form_state->getValues();
   $nombre = $values['nom'];
-  //VALIDA NOM
+  //validation name
   if(empty($nombre) or $nombre == 'nom'){
         $form_state->setErrorByName('nom', $this->t("Escriva el seu nom."));
 
@@ -92,7 +89,6 @@ class addform extends FormBase {
   //VALIDA CHEXBOX
 
   if($values['politica_privacidad']['Acepto la politica de privacidad'] !== 'Acepto la politica de privacidad'){
-             //\Drupal::messenger()->addMessage(t('debe aceptar la politica de privacidad'));
              $form_state->setErrorByName('politica_privacdad', $this->t("Ha d'acceptar la política de privacitat."));
 
           }
@@ -116,38 +112,8 @@ class addform extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     
-    /*$newMail = \Drupal::service('plugin.manager.mail');
-    //$params['password'] = $password;
-    //$params['email'] = $userEmail;
-    $email= $form_state->getValue('email');
-    $params['email'] = $email;
-    $params['nom'] = $nom;
-    //$to obtiene le email del sitio
-  //  $to =  \Drupal::config('system.site')->get('mail');
-    $to =  'gust.castilla@gmail.com';
-    //lenguaje por defecto del sitio
-    $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    $module='newsletter_sularyy';
-    $key='newsletter_sularyy';
-
-    $newMail->mail($module, $key, $to, $langcode, $params, $reply = NULL, $send = TRUE);
-    //dpm($newMail);
-    if (!$newMail) {
-      $errorMessage = error_get_last()['message'];
-      \Drupal::messenger()->addMessage(t("Les dades no s'han guardat."));
-      $form_state->setRedirect('<front>');
-    }else{
-      \Drupal::messenger()->addMessage(t('Dades guardades correctament.'));}*/
-
-
-      //$values = $webform_submission->getData();
-     // $email = strtolower($values['email']);
-      //$name = $values['nom'];
-      //$last_name = $values['last_name'];
-
       $email=$form_state->getValue('email');
       $name=$form_state->getValue('nom');
-      // The data to send to the API
       $postData = array(
         "email_address" => "$email",
         "status" => "subscribed",
@@ -157,8 +123,6 @@ class addform extends FormBase {
         )
       );
   
-      // Setup cURL
-      // To get the correct dataserver, see the url of your mailchimp back-end, mine is https://us20.admin.mailchimp.com/account/api/
       $ch = curl_init('https://'.self::SERVER_LOCATION.'.api.mailchimp.com/3.0/lists/'.self::LIST_ID.'/members/');
       curl_setopt_array($ch, array(
         CURLOPT_POST => TRUE,
@@ -170,7 +134,7 @@ class addform extends FormBase {
         CURLOPT_POSTFIELDS => json_encode($postData)
       ));
   
-      // Send the request
+      
       $response = curl_exec($ch);
       $readable_response = json_decode($response);
       if(!$readable_response) {
@@ -193,6 +157,5 @@ class addform extends FormBase {
       return true;
      
 
-      //$form_state->setRedirect('<front>');
   }
 }
